@@ -1,0 +1,104 @@
+---
+title: "2018/02/06 花蓮地震"
+author: "Person"
+output:
+  html_document:
+    df_print: paged
+---
+```{r data&library, echo=FALSE, warning=FALSE, include=FALSE}
+#load library
+library(dplyr)
+library(rgdal)
+library(leaflet)
+library(geosphere)
+library(htmlwidgets)
+library(xtable)
+library(knitr)
+library(mapview)
+
+#function
+read.cwbsgm.index <- function(file.name){
+  a <- readLines(con <- file(file.name))
+  #station
+  b <- textConnection(a[!grepl("^[0-9]",a)])
+  #DF <- read.table(b, fill = TRUE, stringsAsFactors=FALSE)
+  DF <- read.fwf(b, widths=c(7,2,8,8,7,7,6,13,5,16,6), stringsAsFactors=FALSE, strip.white=TRUE)
+  #DF <- trim(DF)
+  close(b)
+  names(DF) <- c("Sta", "Intensity", "Distance", "PGA.Z", "PGA.NS", "PGA.EW", "Time.elapse", "File.name",
+                 "Instrument", "first.time", "A1")
+  DF$PGA.Z <- as.numeric(DF$PGA.Z)
+  DF$PGA.NS <- as.numeric(DF$PGA.NS)
+  DF$PGA.EW <- as.numeric(DF$PGA.EW)
+  DF$first.time <- as.character(DF$first.time)
+  #earthquake
+  b <- textConnection(a[grepl("^[0-9]",a)])
+  DF2 <- read.fwf(b, widths=c(4,2,2,2,2,6,2,5,3,5,6,4,3,4,3,4,4,4,2,3,1,13,3), stringsAsFactors=FALSE,
+                  strip.white=TRUE)
+  #DF2 <- trim(DF2)
+  close(b)
+  close(con)
+  names(DF2) <- c("Year", "Month", "Day", "Hour", "Minute", "Sec", "Lat", "Lat.min", "Lon", "Lon.min", 
+                  "Depth", "ML", "Sta.num", "closest.epi", "angle", "RMS", "ERH", "ERZ","N", "Number",
+                  "quality", "Pfile", "Number2")
+  DF2$EQ_ID <- paste(DF2$Year, "_", formatC(DF2$Month, width=2, flag="0"), 
+                     formatC(DF2$Day, width=2, flag="0"), "_", 
+                     formatC(DF2$Hour, width=2, flag="0"), formatC(DF2$Minute, width=2, flag="0"), "_", 
+                     formatC(round(DF2$Sec), width=2, flag="0"), sep="")
+  DF2$Lon.X <- DF2$Lon + (DF2$Lon.min/60)
+  DF2$Lat.Y <- DF2$Lat + (DF2$Lat.min/60)
+  DF3 <-  DF2[rep(1:nrow(DF2), DF2$Number2),]
+  DF.OK <- cbind(DF3,DF)
+  DF.OK$SGM_ID <- paste(DF.OK$Year, formatC(DF.OK$Month, width=2, flag="0"), 
+                        formatC(DF.OK$Day, width=2, flag="0"),  
+                        formatC(DF.OK$Hour, width=2, flag="0"), formatC(DF.OK$Minute, width=2, flag="0"),  
+                        formatC(round(DF.OK$Sec), width=2, flag="0"), ".", DF.OK$Sta, sep="")
+  DF.OK
+}
+
+
+```
+
+# 簡介{.Introduction}
+
+台灣時間2018年02月06日午夜23時50分於台灣花蓮縣近海發生芮氏規模M L 6.0之地震
+
+- 花蓮市、宜蘭南澳皆觀測到7級震度
+- 震央位置在北緯24.14度、東經121.69度，震源深度為10.0公里
+
+
+```{r}
+file.name <- file.path("..", "data", "CWB", "Index.log")
+file.name2 <- file.path("..", "data", "CWB", "Station.log")
+
+sgm.index <- read.cwbsgm.index(file.name)
+station.index <- read.table(file.name2, stringsAsFactors = F, 
+                            col.names=c("STA_ID", "Sta.lon", "Sta.lat", "Sta.elevation", "Start.time",
+                                        "End.time"))
+sgm.index.ok <- sgm.index %>% left_join(station.index, by=c("Sta"="STA_ID"))
+# get eq.info
+eq.info <- distinct(sgm.index.ok, EQ_ID, .keep_all = TRUE) %>%
+  select(EQ_ID, Pfile, Year:quality, Lon.X, Lat.Y)
+# get sta.info
+sta.info <- distinct(sgm.index.ok, STA_ID, .keep_all = TRUE) %>%
+  select(Sta:End.time) %>%
+  mutate(PGA.H = sqrt(PGA.NS * PGA.EW)/978.8)
+# convert to sp object
+# 台灣常用的 EPSG代碼
+# TM2（TWD97，中央經線121度）(適用臺灣本島，目前政府使用) ＝> EPSG:3826
+# TM2（TWD67，中央經線121度）(適用臺灣本島，早期政府使用) ＝> EPSG:3828
+# WGS84經緯度（全球性資料，如：GPS） ＝> EPSG:4326
+eq.sp <- as.data.frame(eq.info)
+coordinates(eq.sp) <- ~Lon.X+Lat.Y
+proj4string(eq.sp) <- CRS("+init=epsg:4326")
+sta.sp <- sta.info
+coordinates(sta.sp) <- ~Sta.lon+Sta.lat
+proj4string(sta.sp) <- CRS("+init=epsg:4326")
+```
+
+```{r}
+# mapview
+mapview(sta.sp, zcol = "PGA.H", legend = TRUE) + mapview(eq.sp)
+
+
+```
