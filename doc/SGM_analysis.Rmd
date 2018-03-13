@@ -15,6 +15,8 @@ library(htmlwidgets)
 library(xtable)
 library(knitr)
 library(mapview)
+library(ggmap)
+library(automap)
 
 #function
 read.cwbsgm.index <- function(file.name){
@@ -39,16 +41,17 @@ read.cwbsgm.index <- function(file.name){
   close(b)
   close(con)
   names(DF2) <- c("Year", "Month", "Day", "Hour", "Minute", "Sec", "Lat", "Lat.min", "Lon", "Lon.min", 
-                  "Depth", "ML", "Sta.num", "closest.epi", "angle", "RMS", "ERH", "ERZ","N", "Number",
-                  "quality", "Pfile", "Number2")
+                  "Depth", "ML", "Sta.num", "closest.epi", "angle", "RMS", "ERH", "ERZ","N", "Number.sta",
+                  "quality", "Pfile", "Number.records")
   DF2$EQ_ID <- paste(DF2$Year, "_", formatC(DF2$Month, width=2, flag="0"), 
                      formatC(DF2$Day, width=2, flag="0"), "_", 
                      formatC(DF2$Hour, width=2, flag="0"), formatC(DF2$Minute, width=2, flag="0"), "_", 
                      formatC(round(DF2$Sec), width=2, flag="0"), sep="")
   DF2$Lon.X <- DF2$Lon + (DF2$Lon.min/60)
   DF2$Lat.Y <- DF2$Lat + (DF2$Lat.min/60)
-  DF3 <-  DF2[rep(1:nrow(DF2), DF2$Number2),]
+  DF3 <-  DF2[rep(1:nrow(DF2), DF2$Number.records),]
   DF.OK <- cbind(DF3,DF)
+  DF.OK$file.id <- paste0(DF.OK$Pfile, ".", DF.OK$File.name)
   DF.OK$SGM_ID <- paste(DF.OK$Year, formatC(DF.OK$Month, width=2, flag="0"), 
                         formatC(DF.OK$Day, width=2, flag="0"),  
                         formatC(DF.OK$Hour, width=2, flag="0"), formatC(DF.OK$Minute, width=2, flag="0"),  
@@ -75,13 +78,14 @@ sgm.index <- read.cwbsgm.index(file.name)
 station.index <- read.table(file.name2, stringsAsFactors = F, 
                             col.names=c("STA_ID", "Sta.lon", "Sta.lat", "Sta.elevation", "Start.time",
                                         "End.time"))
-sgm.index.ok <- sgm.index %>% left_join(station.index, by=c("Sta"="STA_ID"))
+sgm.index.ok <- sgm.index %>% left_join(station.index, by=c("Sta"="STA_ID")) %>% 
+  mutate(STA_ID = Sta, PGA.H = sqrt(PGA.NS * PGA.EW)/978.8)
 # get eq.info
 eq.info <- distinct(sgm.index.ok, EQ_ID, .keep_all = TRUE) %>%
   select(EQ_ID, Pfile, Year:quality, Lon.X, Lat.Y)
 # get sta.info
 sta.info <- distinct(sgm.index.ok, STA_ID, .keep_all = TRUE) %>%
-  select(Sta:End.time) %>%
+  select(STA_ID, Sta:End.time) %>%
   mutate(PGA.H = sqrt(PGA.NS * PGA.EW)/978.8)
 # convert to sp object
 # 台灣常用的 EPSG代碼
@@ -94,11 +98,135 @@ proj4string(eq.sp) <- CRS("+init=epsg:4326")
 sta.sp <- sta.info
 coordinates(sta.sp) <- ~Sta.lon+Sta.lat
 proj4string(sta.sp) <- CRS("+init=epsg:4326")
+sgm.sp <- sgm.index.ok
+coordinates(sgm.sp) <- ~Sta.lon+Sta.lat
+proj4string(sgm.sp) <- CRS("+init=epsg:4326")
+
 ```
 
-```{r}
+#Map
+
+## Leaflet map
+
+```{r leaflet map, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+#leaflet map
+m <- leaflet() %>%
+  addTiles(group = "OSM(default)") %>%
+  addProviderTiles("OpenTopoMap", group = "OpenTopo") %>%
+  addProviderTiles("Esri.WorldImagery", group = "Esri.WorldImagery") %>%
+  addProviderTiles("CartoDB.Positron", group = "CartoDB") %>%
+  addProviderTiles("Stamen.Toner", group = "Stamen.Toner") %>%
+  addWMSTiles("http://wms.nlsc.gov.tw/wms", layers = "PHOTO2",
+              options = WMSTileOptions(format = "image/png"),
+              attribution = "maps.nlsc.gov.tw", group = "TW.Aerial.Photo") %>%
+  addCircleMarkers(data = eq.sp, radius = ~1.5^ML, 
+                   popup = ~paste(sep="<br/>", "EQ", EQ_ID, paste("ML=", ML),
+                                  paste("Depth=", Depth, " km", sep="")),
+                   stroke = FALSE, fillOpacity = 0.5, group = "EQ") %>%
+  # addMarkers(data = sgm.sp, label = ~STA_ID, popup = ~paste(sep="<br/>", paste("STA=", STA_ID), 
+  #                                                           paste("Instrument=", Instrument),
+  #                                                           paste("File name=", File.name),
+  #                                                           paste("Distance=", Distance, "km"),
+  #                                                           paste("Intensity=", Intensity),
+  #                                                           paste("PGA.Z=", PGA.Z),
+  #                                                           paste("PGA.NS=", PGA.NS),
+  #                                                           paste("PGA.EW=", PGA.EW)),
+  #            labelOptions = labelOptions(noHide = T), group = "Station") %>%
+  addMarkers(data = sgm.sp, label = ~STA_ID, popup = popupTable(sgm.sp@data),
+             labelOptions = labelOptions(noHide = T), group = "Station") %>%
+  addLayersControl(
+    baseGroups = c("OSM(default)", "OpenTopo", "Esri.WorldImagery", "CartoDB", 
+                   "Stamen.Toner", "TW.Aerial.Photo"),
+    overlayGroups = c("EQ", "Station"),
+    options = layersControlOptions(collapsed = TRUE)
+  )
+m
+```
+
+## mapview map
+
+```{r mapview map}
 # mapview
 mapview(sta.sp, zcol = "PGA.H", legend = TRUE) + mapview(eq.sp)
 
 
 ```
+
+## ggmap
+
+```{r ggmap}
+# start with points
+pred.points <- ggplot(data = sgm.index.ok,
+       aes(x = Sta.lon,
+           y = Sta.lat,
+           colour = PGA.H)) + 
+  geom_point()
+print(pred.points)
+
+# Binned data
+pred.stat <- ggplot(data = sgm.index.ok,
+                      aes(x = Sta.lon,
+                          y = Sta.lat,
+                          z = PGA.H)) + 
+  stat_summary2d(fun = mean)
+print(pred.stat)
+
+#
+YlOrBr <- c("#FFFFD4", "#FED98E", "#FE9929", "#D95F0E", "#993404")
+map.in <- get_map(location = c(min(sgm.index.ok$Sta.lon),
+                               min(sgm.index.ok$Sta.lat),
+                               max(sgm.index.ok$Sta.lon),
+                               max(sgm.index.ok$Sta.lat)))
+theme_set(theme_bw(base_size = 8))
+pred.stat.map <- ggmap(map.in) %+% sgm.index.ok + 
+  aes(x = Sta.lon,
+      y = Sta.lat,
+      z = PGA.H) +
+  stat_summary_2d(fun = median, 
+                 binwidth = c(.005, .005),
+                 alpha = 0.5) + 
+  scale_fill_gradientn(name = "Median",
+                       colours = YlOrBr,
+                       space = "Lab") + 
+  labs(x = "Longitude",
+       y = "Latitude") +
+  coord_map()
+print(pred.stat.map)
+```
+
+## kirging map
+
+```{r}
+# convert project
+sgm.sp.twd97tm2 <- spTransform(sgm.sp, CRS("+init=epsg:3826"))
+
+
+#Setting the  prediction grid properties
+min_x = min(sgm.sp.twd97tm2$Sta.lon) #minimun x coordinate
+min_y = min(sgm.sp.twd97tm2$Sta.lat) #minimun y coordinate
+x_length = max(sgm.sp.twd97tm2$Sta.lon - min_x) #easting amplitude
+y_length = max(sgm.sp.twd97tm2$Sta.lat - min_y) #northing amplitude
+cellsize = 100 #pixel size
+ncol = round(x_length/cellsize,0) #number of columns in grid
+nrow = round(y_length/cellsize,0) #number of rows in grid
+
+# coordinates(meuse) = ~x+y
+# proj4string(meuse) = CRS("+proj=utm +ellps=WGS84 +datum=WGS84") #assign CRS with projected coordinates.
+
+grid = GridTopology(cellcentre.offset=c(min_x,min_y),cellsize=c(cellsize,cellsize),cells.dim=c(ncol,nrow))
+
+#Convert GridTopolgy object to SpatialPixelsDataFrame object.
+grid = SpatialPixelsDataFrame(grid,
+                              data=data.frame(id=1:prod(ncol,nrow)),
+                              proj4string=CRS(proj4string(sgm.sp.twd97tm2)))
+
+plot(grid)
+
+
+#Perform ordinary kriging and store results inside object of type "autoKrige" "list" 
+kriging_result = autoKrige(PGA.H~1, sgm.sp.twd97tm2, grid)
+plot(kriging_result)
+prediction_PGA.H = kriging_result$krige_output
+```
+
+
