@@ -17,6 +17,8 @@ library(knitr)
 library(mapview)
 library(ggmap)
 library(automap)
+library(here)
+library(XML)
 
 #function
 read.cwbsgm.index <- function(file.name){
@@ -70,7 +72,7 @@ read.cwbsgm.index <- function(file.name){
 - 震央位置在北緯24.14度、東經121.69度，震源深度為10.0公里
 
 
-```{r}
+```{r read data}
 file.name <- file.path("..", "data", "CWB", "Index.log")
 file.name2 <- file.path("..", "data", "CWB", "Station.log")
 
@@ -102,6 +104,17 @@ sgm.sp <- sgm.index.ok
 coordinates(sgm.sp) <- ~Sta.lon+Sta.lat
 proj4string(sgm.sp) <- CRS("+init=epsg:4326")
 
+# read active fault 
+#以readOGR函數(rgdal package)讀取KML檔案
+#資料來源：https://opendata.epa.gov.tw/Data/Details/SOIL00103
+#faults <- readOGR("../data/EPA/active_fault.kml", encoding = "UTF-8", stringsAsFactors = FALSE)
+fault <- readOGR("../data/EPA/Taiwan_active_fault.shp", stringsAsFactors = FALSE, encoding = "UTF-8")
+fault2 <- readOGR("../data/EPA/Taiwan_active_fault.TAB", stringsAsFactors = FALSE)
+fault2@data$Name <- unlist(lapply(fault2@data$Name, iconv, from = "Big5", to = "UTF-8"))
+#地調所geojson
+#http://www.geologycloud.tw/dashboard/datalist
+# fault3 <- geojsonio::geojson_read("http://www.geologycloud.tw/api/v1/zh-tw/ActiveFault?t=.json", method=
+#                                     "web", what = "sp")
 ```
 
 #Map
@@ -116,6 +129,8 @@ m <- leaflet() %>%
   addProviderTiles("Esri.WorldImagery", group = "Esri.WorldImagery") %>%
   addProviderTiles("CartoDB.Positron", group = "CartoDB") %>%
   addProviderTiles("Stamen.Toner", group = "Stamen.Toner") %>%
+  addProviderTiles("Stamen.Terrain", group = "Stamen.Terrain") %>%
+  addProviderTiles("NASAGIBS.ViirsEarthAtNight2012", group = "NASA.Earth.Night") %>%
   addWMSTiles("http://wms.nlsc.gov.tw/wms", layers = "PHOTO2",
               options = WMSTileOptions(format = "image/png"),
               attribution = "maps.nlsc.gov.tw", group = "TW.Aerial.Photo") %>%
@@ -134,10 +149,11 @@ m <- leaflet() %>%
   #            labelOptions = labelOptions(noHide = T), group = "Station") %>%
   addMarkers(data = sgm.sp, label = ~STA_ID, popup = popupTable(sgm.sp@data),
              labelOptions = labelOptions(noHide = T), group = "Station") %>%
+  addPolylines(data=fault2, color = "red", popup = ~Name, group = "Faults") %>%
   addLayersControl(
     baseGroups = c("OSM(default)", "OpenTopo", "Esri.WorldImagery", "CartoDB", 
-                   "Stamen.Toner", "TW.Aerial.Photo"),
-    overlayGroups = c("EQ", "Station"),
+                   "Stamen.Toner", "Stamen.Terrain", "NASA.Earth.Night", "TW.Aerial.Photo"),
+    overlayGroups = c("EQ", "Station", "Faults"),
     options = layersControlOptions(collapsed = TRUE)
   )
 m
@@ -220,13 +236,13 @@ grid = SpatialPixelsDataFrame(grid,
                               data=data.frame(id=1:prod(ncol,nrow)),
                               proj4string=CRS(proj4string(sgm.sp.twd97tm2)))
 
-plot(grid)
-
-
 #Perform ordinary kriging and store results inside object of type "autoKrige" "list" 
 kriging_result = autoKrige(PGA.H~1, sgm.sp.twd97tm2, grid)
 plot(kriging_result)
 prediction_PGA.H = kriging_result$krige_output
+
+plot(kriging_result$krige_output, breaks = c(0, 0.8,2.5,8,25,80,250,400,999)/980, 
+     col= colorRampPalette(brewer.pal(5,"YlOrRd"))(8))
 ```
 
 

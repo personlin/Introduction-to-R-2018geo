@@ -1,0 +1,37 @@
+!table
+!version 1000
+!charset WindowsTradChinese
+
+Definition Table
+  Type NATIVE Charset "WindowsTradChinese"
+  Fields 12
+    Name Char (254) ;
+    Descriptio Char (254) ;
+    Timestamp Char (24) ;
+    Begin Char (24) ;
+    End Char (24) ;
+    Altitudemo Char (254) ;
+    Tessellate Decimal (10, 0) ;
+    Extrude Decimal (10, 0) ;
+    Visibility Decimal (10, 0) ;
+    Draworder Decimal (10, 0) ;
+    Icon Char (254) ;
+    Snippet Char (254) ;
+begin_metadata
+"\IsReadOnly" = "FALSE"
+"\Shapefile" = ""
+"\Shapefile\PersistentCache" = "FALSE"
+"\Spatial Reference" = ""
+"\Spatial Reference\Geographic" = ""
+"\Spatial Reference\Geographic\Projection" = ""
+"\Spatial Reference\Geographic\Projection\Clause" = "CoordSys Earth Projection 1, 104"
+"\DefaultStyles" = ""
+"\DefaultStyles\LinePen" = ""
+"\DefaultStyles\LinePen\LineWidth" = "1"
+"\DefaultStyles\LinePen\LineStyle" = "0"
+"\DefaultStyles\LinePen\Color" = "0"
+"\DefaultStyles\LinePen\Pattern" = "2"
+"\MapInfo" = ""
+"\MapInfo\TableID" = "9b3216f3-61e4-405c-a6b5-73fbb20e91ee"
+"\MapInfo\ParentTableID" = "cdb44bea-d359-4b4c-bbc4-c3d9e3acd6ad"
+end_metadata
