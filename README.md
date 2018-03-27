@@ -26,6 +26,9 @@ Introduction to R workshop material including R code, data and presentation at 2
 2. Suzan Baert's [Git note part 2](https://github.com/suzanbaert/Resources_and_Bookmarks/blob/master/GIT_02_Fixing_screwups.md)
 3. Jenny Bryan's [Happy Git and GitHub for the useR](http://happygitwithr.com/)
 
+Git Tutorial for Beginners: Command-Line Fundamentals
+[![Git Tutorial for Beginners: Command-Line Fundamentals](https://img.youtube.com/vi/HVsySz-h9r4/0.jpg)](https://www.youtube.com/embed/HVsySz-h9r4)
+
 ## Docker
 
 # Reference
