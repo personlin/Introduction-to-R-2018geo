@@ -31,6 +31,7 @@ Git Tutorial for Beginners: Command-Line Fundamentals
 [![Git Tutorial for Beginners: Command-Line Fundamentals](https://img.youtube.com/vi/HVsySz-h9r4/0.jpg)](https://www.youtube.com/watch?v=HVsySz-h9r4)
 
 ## Docker
+[Free Docker Books](https://github.com/TechBookHunter/Free-Docker-Books)
 
 # Reference
 1. 曾意儒Yi-Ju Tseng, [資料科學與R語言](https://yijutseng.github.io/DataScienceRBook/).
