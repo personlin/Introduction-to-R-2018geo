@@ -27,7 +27,8 @@ Introduction to R workshop material including R code, data and presentation at 2
 3. Jenny Bryan's [Happy Git and GitHub for the useR](http://happygitwithr.com/)
 
 Git Tutorial for Beginners: Command-Line Fundamentals
-[![Git Tutorial for Beginners: Command-Line Fundamentals](https://img.youtube.com/vi/HVsySz-h9r4/0.jpg)](https://www.youtube.com/embed/HVsySz-h9r4)
+
+[![Git Tutorial for Beginners: Command-Line Fundamentals](https://img.youtube.com/vi/HVsySz-h9r4/0.jpg)](https://www.youtube.com/watch?v=HVsySz-h9r4)
 
 ## Docker
 
