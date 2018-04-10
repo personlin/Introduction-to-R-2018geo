@@ -1,4 +1,4 @@
-# Introduction_to_R_2018geo
+# Introduction to R 2018geo
 Introduction to R workshop material including R code, data and presentation at 2018 annual congress of Geological Society Located in Taipei &amp; Chinese Taipei Geophysical Society.
 
 # Install
@@ -9,7 +9,7 @@ Introduction to R workshop material including R code, data and presentation at 2
 ## Run R in the cloud
 1. [RStudio Cloud](https://rstudio.cloud/)
 
-# Cheat Sheets
+# Cheat sheets
 [RStudio Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/)
 1. [Base R](http://github.com/rstudio/cheatsheets/raw/master/base-r.pdf) R基本語法
 2. [Advanced R](https://www.rstudio.com/wp-content/uploads/2016/02/advancedR.pdf) R進階語法
@@ -17,7 +17,43 @@ Introduction to R workshop material including R code, data and presentation at 2
 4. [R Markdown](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf) R Markdown 說明
 5. [The leaflet package](https://github.com/rstudio/cheatsheets/raw/master/leaflet.pdf) leaflet互動地圖套件說明
 
-# Other things to learn
+# Packages
+
+## Geoscience
+
+[ETAS](http://cran.r-project.org/web/packages/ETAS/index.html) (Modeling earthquake data using Epidemic Type Aftershock Sequence model
+
+[GRTo](http://cran.r-project.org/web/packages/GRTo/index.html): Tools for the analysis of Gutenberg-Richter distributions of earthquake magnitudes 
+
+[Rvelslant](http://cran.r-project.org/web/packages/Rvelslant/) Downhole Seismic Analysis in R 
+
+## GIS
+
+[mapedit](https://github.com/r-spatial/mapedit) Interactive editing of spatial data in R 互動式地圖編輯套件
+
+[mapview](https://r-spatial.github.io/mapview/) Interactive viewing of spatial objects in R 互動式地圖展示套件
+
+## Remote sensing
+
+[getSpatialData](https://github.com/16EAGLE/getSpatialData)
+
+[RStoolbox](https://github.com/bleutner/RStoolbox)
+
+# R resources
+
+[Awesome R](https://awesome-r.com/) A curated list of awesome R packages and tools.
+
+[R Weekly](https://rweekly.org/) R週報，關於R的新知都在這！
+
+[R 語言翻轉教室](http://datascienceandr.org/) 全中文R語言互動式教材
+
+# R user group
+
+[Taiwan R User Group / MLDM Monday](https://www.meetup.com/Taiwan-R/) 台灣最大R社群
+
+[R-Ladies Taipei](https://www.meetup.com/R-Ladies-Taipei/) 女生專屬社群
+
+# Other things to learn	
 
 ## Git
 
