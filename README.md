@@ -11,6 +11,12 @@ Introduction to R workshop material including R code, data and presentation at 2
 ## Run R in the cloud 在雲端跑R
 1. [RStudio Cloud](https://rstudio.cloud/)
 
+# R語言介紹
+
+[An Introduction to R](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf) R官方的R介紹電子書
+
+[Introduction to R](https://www.datacamp.com/courses/free-introduction-to-r) Free Introduction to R Programming Online Course | DataCamp免費R介紹課程
+
 # Cheat sheets 速查表
 [RStudio Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/)
 1. [Base R](http://github.com/rstudio/cheatsheets/raw/master/base-r.pdf) R基本語法
@@ -20,6 +26,19 @@ Introduction to R workshop material including R code, data and presentation at 2
 5. [The leaflet package](https://github.com/rstudio/cheatsheets/raw/master/leaflet.pdf) leaflet互動地圖套件說明
 
 # Packages 套件介紹
+
+## R packages for data science 資料科學家工具
+
+[Tidyverse](https://www.tidyverse.org/)
+
+* [ggplot2](http://ggplot2.tidyverse.org/), for data visualisation.
+* [dplyr](http://dplyr.tidyverse.org/), for data manipulation.
+* [tidyr](http://tidyr.tidyverse.org/), for data tidying.
+* [readr](http://readr.tidyverse.org/), for data import.
+* [purrr](http://purrr.tidyverse.org/), for functional programming.
+* [tibble](http://tibble.tidyverse.org/), for tibbles, a modern re-imagining of data frames.
+* [stringr](https://github.com/tidyverse/stringr), for strings.
+* [forcats](https://github.com/hadley/forcats), for factors.
 
 ## Geoscience 地科類
 
@@ -48,6 +67,8 @@ Introduction to R workshop material including R code, data and presentation at 2
 [R Weekly](https://rweekly.org/) R週報，關於R的新知都在這！
 
 [R 語言翻轉教室](http://datascienceandr.org/) 全中文R語言互動式教材
+
+[GEOG 4/590: R for Earth-System Science](http://geog.uoregon.edu/bartlein/courses/geog490/index.html) 美國俄勒岡大學的R地球系統科學課程網站
 
 # R user group R使用者社群
 
