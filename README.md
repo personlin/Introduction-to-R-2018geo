@@ -40,6 +40,10 @@ Introduction to R workshop material including R code, data and presentation at 2
 * [stringr](https://github.com/tidyverse/stringr), for strings.
 * [forcats](https://github.com/hadley/forcats), for factors.
 
+## Plot 繪圖類
+
+[plotly](https://github.com/ropensci/plotly)An interactive graphing library for R 互動式繪圖
+
 ## Geoscience 地科類
 
 [ETAS](http://cran.r-project.org/web/packages/ETAS/index.html) (Modeling earthquake data using Epidemic Type Aftershock Sequence model
