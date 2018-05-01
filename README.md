@@ -25,6 +25,12 @@ Introduction to R workshop material including R code, data and presentation at 2
 4. [R Markdown](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf) R Markdown 說明
 5. [The leaflet package](https://github.com/rstudio/cheatsheets/raw/master/leaflet.pdf) leaflet互動地圖套件說明
 
+# R coding style guide 程式碼風格指南
+
+* [Google's R Style Guide](https://google.github.io/styleguide/Rguide.xml)
+* [Style guide in "Advanced R" by Hadley Wickham](http://adv-r.had.co.nz/Style.html)
+* [The tidyverse style guide](http://style.tidyverse.org/)
+
 # Packages 套件介紹
 
 ## R packages for data science 資料科學家工具
@@ -73,6 +79,15 @@ Introduction to R workshop material including R code, data and presentation at 2
 [R 語言翻轉教室](http://datascienceandr.org/) 全中文R語言互動式教材
 
 [GEOG 4/590: R for Earth-System Science](http://geog.uoregon.edu/bartlein/courses/geog490/index.html) 美國俄勒岡大學的R地球系統科學課程網站
+
+# R for MATLAB users
+[R for MATLAB users 語法對照表 ](http://mathesaurus.sourceforge.net/octave-r.html)
+
+[R package: **matlab**. Emulate MATLAB code using R](https://cran.r-project.org/web/packages/matlab/index.html)
+
+[R package: **R.matlab**. Read and Write MAT Files and Call MATLAB from Within R](https://github.com/HenrikBengtsson/R.matlab)
+
+[MATLAB® / R Reference, by David Hiebeler](http://www.math.umaine.edu/~hiebeler/comp/matlabR.html)
 
 # R user group R使用者社群
 
