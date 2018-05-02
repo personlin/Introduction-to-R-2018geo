@@ -97,6 +97,10 @@ install.packages(c("maps", "ggmap", "dplyr", "rgdal", "leaflet", "geosphere", "h
 
 [MATLAB® / R Reference, by David Hiebeler](http://www.math.umaine.edu/~hiebeler/comp/matlabR.html)
 
+# R interface to Python
+
+[reticulate: R interface to Python](https://blog.rstudio.com/2018/03/26/reticulate-r-interface-to-python/)
+
 # R user group R使用者社群
 
 [Taiwan R User Group / MLDM Monday](https://www.meetup.com/Taiwan-R/) 台灣最大R社群
