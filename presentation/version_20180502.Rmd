@@ -9,6 +9,23 @@ output:
   beamer_presentation: default
 ---
 
+#安裝R, RStudio及相關套件
+
+[課程資料網址：https://github.com/personlin/Introduction-to-R-2018geo/](https://github.com/personlin/Introduction-to-R-2018geo/)
+
+[軟體安裝介紹](https://yijutseng.github.io/DataScienceRBook/install.html)
+
+1. [Install R 安裝R](https://cloud.r-project.org/)
+
+2. [Install RStudio IDE 安裝RStudio整合開發軟體](https://www.rstudio.com/products/rstudio/download/#download)
+
+- 安裝套件
+```{r, eval=F}
+install.packages(c("maps", "ggmap", "dplyr", "rgdal", "leaflet", "geosphere", 
+                   "htmlwidgets", "xtable", "knitr",
+                   "mapview", "automap", "here", "XML"))
+```
+
 #學習R的理由
 
 - 免錢(Free)與開放原始碼(Open Source)
