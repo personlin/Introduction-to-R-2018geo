@@ -8,6 +8,12 @@ Introduction to R workshop material including R code, data and presentation at 2
 1. [Install R 安裝R](https://cloud.r-project.org/)
 2. [Install RStudio IDE 安裝RStudio整合開發軟體](https://www.rstudio.com/products/rstudio/download/#download)
 
+## 安裝套件
+```
+install.packages(c("maps", "ggmap", "dplyr", "rgdal", "leaflet", "geosphere", "htmlwidgets", "xtable", "knitr",
+                   "mapview", "automap", "here", "XML"))
+```
+
 ## Run R in the cloud 在雲端跑R
 1. [RStudio Cloud](https://rstudio.cloud/)
 
@@ -79,6 +85,8 @@ Introduction to R workshop material including R code, data and presentation at 2
 [R 語言翻轉教室](http://datascienceandr.org/) 全中文R語言互動式教材
 
 [GEOG 4/590: R for Earth-System Science](http://geog.uoregon.edu/bartlein/courses/geog490/index.html) 美國俄勒岡大學的R地球系統科學課程網站
+
+[Data Analysis in the Geosciences](http://strata.uga.edu/8370/lecturenotes/introduction.html)喬治亞大學的地科資料分析課程網站
 
 # R for MATLAB users
 [R for MATLAB users 語法對照表 ](http://mathesaurus.sourceforge.net/octave-r.html)
