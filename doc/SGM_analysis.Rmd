@@ -19,6 +19,7 @@ library(ggmap)
 library(automap)
 library(here)
 library(XML)
+library(RColorBrewer)
 
 #function
 read.cwbsgm.index <- function(file.name){
