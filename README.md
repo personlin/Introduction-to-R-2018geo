@@ -3,6 +3,34 @@
 
 Introduction to R workshop material including R code, data and presentation at 2018 annual congress of Geological Society Located in Taipei &amp; Chinese Taipei Geophysical Society.
 
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [Introduction to R 2018geo](#introduction-to-r-2018geo)
+- [Install 安裝](#install-安裝)
+	- [安裝套件](#安裝套件)
+	- [Run R in the cloud 在雲端跑R](#run-r-in-the-cloud-在雲端跑r)
+- [R語言介紹](#r語言介紹)
+- [Cheat sheets 速查表](#cheat-sheets-速查表)
+- [R coding style guide 程式碼風格指南](#r-coding-style-guide-程式碼風格指南)
+- [Packages 套件介紹](#packages-套件介紹)
+	- [R packages for data science 資料科學家工具](#r-packages-for-data-science-資料科學家工具)
+	- [Plot 繪圖類](#plot-繪圖類)
+	- [Geoscience 地科類](#geoscience-地科類)
+	- [GIS 地理資訊系統類](#gis-地理資訊系統類)
+	- [Remote sensing 遙測類](#remote-sensing-遙測類)
+- [R resources R學習資源](#r-resources-r學習資源)
+- [R for MATLAB users](#r-for-matlab-users)
+- [R interface to Python](#r-interface-to-python)
+- [R user group R使用者社群](#r-user-group-r使用者社群)
+- [Other things to learn	其他可以學的東西](#other-things-to-learn-其他可以學的東西)
+	- [Git 版本控制系統](#git-版本控制系統)
+	- [Docker](#docker)
+- [Reference 參考文獻](#reference-參考文獻)
+- [Sponsor 主辦單位](#sponsor-主辦單位)
+
+<!-- /TOC -->
+
+
 # Install 安裝
 [軟體安裝介紹](https://yijutseng.github.io/DataScienceRBook/install.html)
 1. [Install R 安裝R](https://cloud.r-project.org/)
