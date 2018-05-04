@@ -125,3 +125,11 @@ Git Tutorial for Beginners: Command-Line Fundamentals
 
 # Reference 參考文獻
 1. 曾意儒Yi-Ju Tseng, [資料科學與R語言](https://yijutseng.github.io/DataScienceRBook/).
+
+# Sponsor 主辦單位
+
+財團法人中興工程顧問社
+[![Sinotech log](https://www.sinotech.org.tw/zh/Modules/SinotechMenu/images/banner.png "Sinotech")](https://www.sinotech.org.tw/zh/)
+
+2018地質暨地球物理年會
+[![2018Geo](http://2018geo.ccu.edu.tw/images/index_r1_c1.jpg "2018Geo")](http://2018geo.ccu.edu.tw/)
