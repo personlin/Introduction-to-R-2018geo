@@ -3,9 +3,13 @@
 
 Introduction to R workshop material including R code, data and presentation at 2018 annual congress of Geological Society Located in Taipei &amp; Chinese Taipei Geophysical Society.
 
+----
+
 [簡報資料2018-05-02](https://personlin.github.io/Introduction-to-R-2018geo/presentation/version_20180502.html)
 
 [以R進行地震事件資料分析案例:2018/02/06 花蓮地震](https://personlin.github.io/Introduction-to-R-2018geo/doc/SGM_analysis.html)
+
+----
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
@@ -34,6 +38,7 @@ Introduction to R workshop material including R code, data and presentation at 2
 
 <!-- /TOC -->
 
+----
 
 # Install 安裝
 [軟體安裝介紹](https://yijutseng.github.io/DataScienceRBook/install.html)
@@ -48,6 +53,8 @@ install.packages(c("maps", "ggmap", "dplyr", "rgdal", "leaflet", "geosphere", "h
 
 ## Run R in the cloud 在雲端跑R
 1. [RStudio Cloud](https://rstudio.cloud/)
+
+----
 
 # R語言介紹
 
@@ -139,6 +146,8 @@ install.packages(c("maps", "ggmap", "dplyr", "rgdal", "leaflet", "geosphere", "h
 
 [R-Ladies Taipei](https://www.meetup.com/R-Ladies-Taipei/) 女生專屬社群
 
+----
+
 # Other things to learn	其他可以學的東西
 
 ## Git 版本控制系統
@@ -155,8 +164,12 @@ Git Tutorial for Beginners: Command-Line Fundamentals
 ## Docker
 [Free Docker Books](https://github.com/TechBookHunter/Free-Docker-Books)
 
+----
+
 # Reference 參考文獻
 1. 曾意儒Yi-Ju Tseng, [資料科學與R語言](https://yijutseng.github.io/DataScienceRBook/).
+
+----
 
 # Sponsor 主辦單位
 
